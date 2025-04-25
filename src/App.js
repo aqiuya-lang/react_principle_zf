@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import "./app.css";
+import { Button } from 'antd'
 
-function App() {
+import NiceModal from "@ebay/nice-modal-react";
+import AddModal from "./components/addModal";
+import indModal from "./components/indModal";
+const App = () => {
+  // const modal = useModal(MyAntdModal);
+  //modal.show( { name: 'Nate' })
+  const showAtndModal = () => {
+    NiceModal.show(AddModal, { name: "Nate" });
+  };
+  const showIndModal = () => {
+    NiceModal.show(indModal, { name: "Nate" });
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <Button onClick={showAtndModal}>点击显示我的AddModal</Button>
+      <Button onClick={showIndModal}>点击显示我的indModal</Button>
     </div>
   );
-}
+};
 
 export default App;
