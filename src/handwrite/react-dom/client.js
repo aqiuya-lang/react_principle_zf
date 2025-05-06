@@ -20,6 +20,20 @@ function renderElement(element) {
 
   // 取出元素类型和属性
   const {type, props} = element
+  //如果元素类型是函数
+  if (typeof type === 'function') {
+    //如果是类组件
+    if (type.isReactCompoent) {
+      const instance = new type(props)
+      const classElement = instance.render()
+      return renderElement(classElement)
+    } else {
+       //属性对象传递给函数组件，返回一个React元素
+        const functionElement = type(props)
+        return renderElement(functionElement)
+    }
+   
+  }
   // 根据type类型创建真实DOM节点
   const domElement = document.createElement(type)
   Object.keys(props).forEach((name) => {

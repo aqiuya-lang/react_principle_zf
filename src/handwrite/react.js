@@ -18,8 +18,16 @@ function createElement (type, config, children) {
 
 }
 
+class Component {
+  static isReactCompoent = true
+  constructor(props) {
+    this.props = props
+  }
+}
+
 const React = {
-  createElement
+  createElement,
+  Component
 
 }
 export default React
