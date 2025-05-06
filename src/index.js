@@ -1,29 +1,54 @@
-// import React from "react";
-// import ReactDOM from "react-dom/client";
+import React from "react";
+import ReactDOM from "react-dom/client";
 
-import React from "./handwrite/react";
-import ReactDOM from "./handwrite/react-dom/client";
+// import React from "./handwrite/react";
+// import ReactDOM from "./handwrite/react-dom/client";
 
 
-//函数式组件
-// function JsxElement(props) {
-//   return <div>我是函数式组件，{props.name}</div>;
-// }
-// const element1 = <JsxElement name="aqiuya" />;
 
-//类组件，必继承父类React.Compoent,必须有render函数负责返回JSX
-class ClassComponent extends React.Component{
-  constructor(props) {//this.props = props
-    super(props)
-    //在内部会把收到的属性对象放在自己的实例上，以后可以通过this.props拿到
+function Element() {
+
+  const handleParentCapture = () => {
+    console.log("react--parent--capture")
+  }
+  const handleChildCapture = () => {
+    console.log("react--child--capture")
   }
 
-  render() {
-    return (<div>我是类组件，{this.props.name}</div>)
+  const handleParentBubble = () => {
+    console.log("react--parent--bubble")
   }
+  const handleChildBubble = () => {
+    console.log("react--child--bubble")
+  }
+  return (
+    <div id="parent" onClickCapture={handleParentCapture} onClick={handleParentBubble}>
+
+      <button id="child" onClickCapture={handleChildCapture}  onClick={handleChildBubble}>
+          react中的合成事件
+      </button>
+    </div>
+  )
 }
 
-const element2 = <ClassComponent name="aqiuya"/>
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(element2);
+root.render(<Element/>
+);
+
+
+setTimeout(() => {
+  document.getElementById('parent').addEventListener('click',() => {
+    console.log("native--parent--capture")
+  }, true)
+  document.getElementById('child').addEventListener('click',() => {
+    console.log("native--child--capture")
+  }, true)
+  document.getElementById('parent').addEventListener('click',() => {
+    console.log("native--parent--bubble")
+  })
+  document.getElementById('child').addEventListener('click',() => {
+    console.log("native--child--bubble")
+  })
+
+}, 2000)
